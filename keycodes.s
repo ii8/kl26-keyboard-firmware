@@ -40,3 +40,11 @@
 .equiv Key_Tab, 43
 .equiv Key_Space, 44
 .equiv Key_Minus, 45
+.equiv Key_LeftControl, 224
+.equiv Key_LeftShift, 225
+.equiv Key_LeftAlt, 226
+.equiv Key_LeftGui, 227
+.equiv Key_RightControl, 228
+.equiv Key_RightShift, 229
+.equiv Key_RightAlt, 230
+.equiv Key_RightGui, 231

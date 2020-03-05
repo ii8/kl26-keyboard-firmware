@@ -1,0 +1,405 @@
+xkb_keymap {
+xkb_keycodes "tt" {
+  <L0> = 23;
+  <L1> = 9;
+  <L2> = 20;
+
+  <L3> = 24;
+  <L4> = 38;
+  <L5> = 52;
+
+  <L6> = 25;
+  <L7> = 39;
+  <L8> = 53;
+  <L9> = 10;
+
+  <L10> = 26;
+  <L11> = 40;
+  <L12> = 54;
+  <L13> = 11;
+
+  <L14> = 27;
+  <L15> = 41;
+  <L16> = 55;
+
+  <L17> = 28;
+  <L18> = 42;
+  <L19> = 56;
+
+  <L20> = 50;
+  <L21> = 22;
+  <L22> = 37;
+  <L23> = 64;
+  <L24> = 108;
+
+  <R0> = 62;
+  <R1> = 105;
+  <R2> = 133;
+  <R3> = 65;
+  <R4> = 134;
+
+  <R5> = 29;
+  <R6> = 43;
+  <R7> = 57;
+
+  <R8> = 30;
+  <R9> = 44;
+  <R10> = 58;
+
+  <R11> = 31;
+  <R12> = 45;
+  <R13> = 12;
+  <R14> = 13;
+
+  <R15> = 32;
+  <R16> = 46;
+  <R17> = 14;
+  <R18> = 15;
+
+  <R19> = 33;
+  <R20> = 16;
+  <R21> = 17;
+  <R22> = 18;
+  <R23> = 36;
+  <R24> = 19;
+
+  alias <TAB> = <L0>;
+  alias <ESC> = <L1>;
+  alias <RET> = <R23>;
+
+  alias <SHFT> = <L20>;
+  alias <BKSP> = <L21>;
+  alias <CTRL> = <L22>;
+  alias <ALT> = <L23>;
+  alias <ALTG> = <L24>;
+
+  alias <GREK> = <R0>;
+  alias <SYM> = <R1>;
+  alias <WIN> = <R2>;
+  alias <SPCE> = <R3>;
+  alias <NUM> = <R4>;
+};
+
+xkb_types "tt" {
+  type "ONE_LEVEL" {
+    modifiers = none;
+    level_name[Level1] = "Any";
+  };
+
+  type "TT" {
+    modifiers = Shift+Lock+Mod2+Mod3+Mod4+Mod5;
+    map[Shift] = Level2;
+    map[Mod2] = Level3;
+    map[Mod2+Shift] = Level4;
+    map[Mod3] = Level5;
+    map[Mod3+Shift] = Level6;
+    map[Mod5] = Level7;
+    map[Mod5+Shift] = Level8;
+    map[Mod4] = 9;
+    map[Lock] = 10;
+    level_name[1] = "Alpha";
+    level_name[2] = "AlphaShift";
+    level_name[3] = "Num";
+    level_name[4] = "NumShift";
+    level_name[5] = "Sym";
+    level_name[6] = "SymShift";
+    level_name[7] = "Greek";
+    level_name[8] = "GreekShift";
+    level_name[9] = "Win";
+    level_name[10] = "Group";
+  };
+};
+
+xkb_compatibility "tt" {
+  interpret.repeat = False;
+
+  interpret Shift_L+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Shift);
+  };
+
+  interpret Control_L+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Control);
+  };
+
+  interpret Alt_R+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Lock);
+  };
+
+  interpret Alt_L+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Mod1);
+  };
+
+  interpret Num_Lock+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Mod2);
+  };
+
+  interpret ISO_Level3_Shift+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Mod3);
+  };
+
+  interpret Super_L+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Mod4);
+  };
+
+  interpret Shift_R+AnyOfOrNone(all) {
+    action = SetMods(modifiers=Mod5);
+  };
+};
+
+xkb_symbols "tt" {
+  name[Group1]="Base";
+  name[Group2]="Negate";
+  name[Group3]="Down";
+  name[Group4]="Up";
+
+  key <TAB> { [ Tab ] };
+  key <ESC> { [ Escape ] };
+  key <RET> {
+    type = "TT",
+    symbols[Group1] = [ Return, NoSymbol, NoSymbol, NoSymbol, U220E, NoSymbol ]
+  };
+
+  key <CTRL> { [ Control_L ] };
+  key <SHFT> { [ Shift_L ] };
+  key <ALT> { [ Alt_L ] };
+  key <ALTG> { [ Alt_R ] };
+
+  key <GREK> { [ Shift_R ] };
+  key <NUM> { [ Num_Lock ] };
+  key <WIN> { [ Super_L ] };
+  key <SYM> { [ ISO_Level3_Shift ] };
+
+  key <BKSP> { [ BackSpace ] };
+  key <SPCE> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ space, underscore, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group2] = [ U00AC, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    actions[Group1] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=1) ],
+    actions[Group2] = [ LockGroup(group=1), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=1) ],
+    actions[Group3] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=1) ],
+    actions[Group4] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=1) ]
+  };
+
+  key <L2> {
+    type = "TT",
+    symbols[Group1] = [ grave ]
+  };
+  key <L3> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ q, Q, asciitilde, U2248, U211A, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group2] = [ NoSymbol, NoSymbol, U2241, U2249 ],
+    actions[Group2] = [ NoAction(), NoAction(), LockGroup(group=1), LockGroup(group=1) ]
+  };
+  key <L4> {
+    type = "TT",
+    symbols[Group1] = [ a, A, minus, NoSymbol, U2237, NoSymbol, Greek_alpha, Greek_ALPHA, NoSymbol, at ],
+    symbols[Group3] = [ U2090, NoSymbol, U208B, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, U207B, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <L5> { 
+    type = "TT",
+    symbols[Group1] = [ z, Z, NoSymbol, NoSymbol, U2124, NoSymbol, Greek_zeta, Greek_ZETA ]
+  };
+  key <L6> {
+    type = "TT",
+    symbols[Group1] = [ w, W, bar, NoSymbol, U222A, U22C3, Greek_finalsmallsigma, NoSymbol ]
+  };
+  key <L7> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ s, S, plus, U2211, logicalor, U2203, Greek_sigma, Greek_SIGMA, NoSymbol, ssharp ],
+    symbols[Group2] = [ NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, U2204 ],
+    symbols[Group3] = [ U209B, NoSymbol, U208A, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, U207A, NoSymbol, NoSymbol, NoSymbol ],
+    actions[Group2] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=1) ]
+  };
+  key <L8> {
+    type = "TT",
+    symbols[Group1] = [ x, X, NoSymbol, NoSymbol, NoSymbol, NoSymbol, Greek_chi, Greek_CHI ],
+    symbols[Group3] = [ U2093 ]
+  };
+  key <L9> {
+    type = "TT",
+    symbols[Group1] = [ braceleft, U2983, NoSymbol, NoSymbol, U2294, NoSymbol, NoSymbol, NoSymbol ]
+  };
+
+  key <L10> {
+    type = "TT",
+    symbols[Group1] = [ e, E, ampersand, NoSymbol, U2229, U22C2, Greek_epsilon, Greek_EPSILON, NoSymbol, EuroSign ],
+    symbols[Group3] = [ U2091 ]
+  };
+  key <L11> {
+    type = "TT",
+    symbols[Group1] = [ d, D, asterisk, U220F, logicaland, U2200, Greek_delta, Greek_DELTA, NoSymbol, dollar ]
+  };
+  key <L12> {
+    type = "TT",
+    symbols[Group1] = [ c, C, multiply, NoSymbol, U2102, NoSymbol, Greek_psi, Greek_PSI ]
+  };
+  key <L13> {
+    type = "TT",
+    symbols[Group1] = [ braceright, U2984, U2219, U2218, U2293, NoSymbol, NoSymbol, NoSymbol ]
+  };
+
+  key <L14> {
+    type = "TT",
+    symbols[Group1] = [ r, R, percent, NoSymbol, U211D, NoSymbol, Greek_rho, Greek_RHO ],
+    symbols[Group4] = [ U02B3 ]
+  };
+  key <L15> {
+    type = "TT",
+    symbols[Group1] = [ f, F, slash, NoSymbol, NoSymbol, NoSymbol, Greek_phi, Greek_PHI ]
+  };
+  key <L16> {
+    type = "TT",
+    symbols[Group1] = [ v, V, division, NoSymbol, NoSymbol, NoSymbol, Greek_omega, Greek_OMEGA ]
+  };
+
+  key <L17> {
+    type = "TT",
+    symbols[Group1] = [ t, T, NoSymbol, NoSymbol, NoSymbol, NoSymbol, Greek_tau, Greek_TAU ],
+    symbols[Group3] = [ U209C ]
+  };
+  key <L18> {
+    type = "TT",
+    symbols[Group1] = [ g, G, asciicircum, NoSymbol, U2283, NoSymbol, Greek_gamma, Greek_GAMMA ]
+  };
+  key <L19> {
+    type = "TT",
+    symbols[Group1] = [ b, B, U221A, NoSymbol, NoSymbol, NoSymbol, Greek_beta, Greek_BETA ]
+  };
+
+  key <R5> {
+    type = "TT",
+    symbols[Group1] = [ y, Y, NoSymbol, NoSymbol, NoSymbol, NoSymbol, Greek_upsilon, Greek_UPSILON ]
+  };
+  key <R6> {
+    type = "TT",
+    symbols[Group1] = [ h, H, NoSymbol, NoSymbol, U2190, U21D0, Greek_eta, Greek_ETA ],
+    symbols[Group3] = [ U2095 ]
+  };
+  key <R7> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ n, N, numbersign, NoSymbol, U2115, NoSymbol, Greek_nu, Greek_NU ],
+    symbols[Group3] = [ U2099 ],
+    symbols[Group4] = [ U207F ],
+    actions[Group1] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=2) ],
+    actions[Group3] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=2) ],
+    actions[Group4] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=2) ]
+  };
+
+  key <R8> {
+    type = "TT",
+    symbols[Group1] = [ u, U, 7, NoSymbol, downtack, NoSymbol, Greek_theta, Greek_THETA, NoSymbol, dead_diaeresis ],
+    symbols[Group3] = [ NoSymbol, NoSymbol, sevensubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, sevensuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R9> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ j, J, 4, NoSymbol, U2193, U21D3, Greek_xi, Greek_XI ],
+    symbols[Group3] = [ NoSymbol, NoSymbol, foursubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, foursuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    actions[Group1] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=3) ],
+    actions[Group2] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=3) ],
+    actions[Group4] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=3) ]
+  };
+  key <R10> {
+    type = "TT",
+    symbols[Group1] = [ m, M, 1, NoSymbol, NoSymbol, NoSymbol, Greek_mu, Greek_MU ],
+    symbols[Group3] = [ U2098, NoSymbol, onesubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, onesuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+
+  key <R11> {
+    type = "TT",
+    symbols[Group1] = [ i, I, 8, NoSymbol, uptack, NoSymbol, Greek_iota, Greek_IOTA ],
+    symbols[Group3] = [ NoSymbol, NoSymbol, eightsubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ U2071, NoSymbol, eightsuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R12> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ k, K, 5, NoSymbol, U2191, U21D1, Greek_kappa, Greek_KAPPA ],
+    symbols[Group3] = [ U2096, NoSymbol, fivesubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, fivesuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    actions[Group1] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=4) ],
+    actions[Group2] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=4) ],
+    actions[Group3] = [ NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), LockGroup(group=4) ]
+  };
+  key <R13> {
+    type = "TT",
+    symbols[Group1] = [ parenleft, U2985, 2, NoSymbol, U27E8, U27EA, NoSymbol, NoSymbol ],
+    symbols[Group3] = [ U208D, NoSymbol, twosubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ U207D, NoSymbol, twosuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R14> {
+    type = "TT",
+    symbols[Group1] = [ bracketleft, U27E6, 0, NoSymbol, U2195, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group3] = [ U230A, NoSymbol, zerosubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ U2308, NoSymbol, zerosuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+
+  key <R15> {
+    type = "TT",
+    symbols[Group1] = [ o, O, 9, NoSymbol, U22A2, U22A8, Greek_omicron, Greek_OMICRON ],
+    symbols[Group3] = [ U2092, NoSymbol, ninesubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, ninesuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R16> {
+    type = "TT",
+    symbols[Group1] = [ l, L, 6, NoSymbol, U2192, U21D2, Greek_lambda, Greek_LAMBDA, NoSymbol, U2113 ],
+    symbols[Group3] = [ U2097, NoSymbol, sixsubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ U02E1, NoSymbol, sixsuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R17> {
+    type = "TT",
+    symbols[Group1] = [ parenright, U2986, 3, NoSymbol, U27E9, U27EB, NoSymbol, NoSymbol ],
+    symbols[Group3] = [ U208E, NoSymbol, threesubscript, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ U207E, NoSymbol, threesuperior, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R18> {
+    type = "TT",
+    symbols[Group1] = [ bracketright, U27E7, infinity, NoSymbol, U2194, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group3] = [ U230B ],
+    symbols[Group4] = [ U2309 ]
+  };
+
+  key <R19> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ p, P, greater, U2265, U2119, NoSymbol, Greek_pi, Greek_PI, NoSymbol, sterling ],
+    symbols[Group2] = [ NoSymbol, NoSymbol, U226F, U2271 ],
+    symbols[Group3] = [ U209A ],
+    actions[Group2] = [ NoAction(), NoAction(), LockGroup(group=1), LockGroup(group=1) ]
+  };
+  key <R20> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ period, colon, equal, U2261, U220B, U2208, NoSymbol, NoSymbol ],
+    symbols[Group2] = [ NoSymbol, NoSymbol, U2260, U2262, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group3] = [ NoSymbol, NoSymbol, U208C, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group4] = [ NoSymbol, NoSymbol, U207C, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ],
+    actions[Group2] = [ NoAction(), NoAction(), LockGroup(group=1), LockGroup(group=1), NoAction(), NoAction(), NoAction(), NoAction(), NoAction(), NoAction() ]
+  };
+  key <R21> {
+    type = "TT",
+    repeat = True,
+    symbols[Group1] = [ comma, semicolon, less, U2264, emptyset, NoSymbol, NoSymbol, NoSymbol ],
+    symbols[Group2] = [ NoSymbol, NoSymbol, U226E, U2270 ],
+    actions[Group2] = [ NoAction(), NoAction(), LockGroup(group=1), LockGroup(group=1) ]
+  };
+
+  key <R22> {
+    type = "TT",
+    symbols[Group1] = [ apostrophe, quotedbl, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+  key <R24> {
+    type = "TT",
+    symbols[Group1] = [ exclam, question, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]
+  };
+};
+};
